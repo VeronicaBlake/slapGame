@@ -30,7 +30,7 @@ let items = ({
         inUse: false
     },
     fire: {
-        mod: -.1,
+        mod: -1.6,
         description: 'is pleasantly warm.',
         durability: 10,
         btnClass: 'btn-light',
@@ -50,10 +50,12 @@ let enemy ={
  */
 function hit(str){
     let attack = moves[str]
+    console.log('calced',Math.round(attack.damage*modTotal()))
     updateHealth(Math.round(attack.damage*modTotal()))
     drawHealth()
     updateHitCounter()
     drawHitCounter()
+    drawProgress()
 }
 
 function giveItem(element){
@@ -62,7 +64,14 @@ function giveItem(element){
 }
 
 function usingItem(item){
-    items[item.inUse] = !(items[item.inUse]) 
+
+    let expression = items[item].inUse;
+    if(expression){
+        items[item].inUse = false
+    } else {
+        items[item].inUse = true
+    }
+        console.log('befirore click', items[item])
 }
 
 function giveAll(){
@@ -74,9 +83,12 @@ function giveAll(){
 function modTotal(){
 let total = 1
 moves['heldItems'].forEach(element => {
-    total += element.mod
-});
-return total
+    if(element.inUse){
+        total += element.mod
+    }
+})
+    console.log('total', total)
+    return total
 }
 
 //responsible for updating user interface when changed 
@@ -123,6 +135,19 @@ function doesContain(id){
     return document.getElementById(id).classList.contains('border-white') 
 }
 
+function drawProgress(){
+    let template = ''
+    if(enemy.health > 100){
+        template = `<div class="progress-bar bg-danger progress-bar-striped progress-bar-animated" role="progressbar"
+    style="width: 100%; height: 30px " aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>`
+    } else {
+        template = `<div class="progress-bar bg-danger progress-bar-striped progress-bar-animated" role="progressbar"
+    style="width: ${enemy.health}%; height: 30px " aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>`
+    }
+
+    document.getElementById('progress').innerHTML = template
+}
+
 function drawItemButtons(){
     let template = ''
     let abc = 'a'
@@ -131,7 +156,6 @@ function drawItemButtons(){
         template += `<button id='${abc}' class="btn ${element.btnClass} mx-2" onclick="buttonSelect('${abc}');usingItem('${key}')">${key}</button>`;
         abc += 'a'
     }
-    console.log(template);
     document.getElementById('item-buttons').innerHTML = template
 }
 
@@ -141,6 +165,7 @@ function initEnemy(){
     drawHitCounter
 }
 
+drawProgress()
 initEnemy()
 drawButtons()
 drawItemButtons()

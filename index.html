@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="style.css">
     <title>Slap Game</title>
 </head>
-<body class="debug">
+<body>
     <header class="container-fluid bg-primary">
         <div class="row text-center">
             <div class="col"><h3>Slap Game!</h3></div>
@@ -18,13 +18,16 @@
     </header>
 
     <main class="container-fluid bg-secondary">
-        <div class="row mt-5 justify-content-center">
-            <div class="col-12 mb-3" id="buttons"></div>
-            <div class="col-12 mb-3" id="item-buttons"></div>
-            <div class="col-12">
-                <img src="https://images.unsplash.com/photo-1572453020814-972b244074d4?ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8bW9uc3RlcnxlbnwwfHwwfHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" class="w-100 enemy-pic" alt="">
+        <div class="row mt-5">
+            <div class="col-12 justify-content-center d-flex mb-3" id="buttons"></div>
+            <div class="col-12 justify-content-center d-flex mb-3" id="item-buttons"></div>
+            <div class="col-12 justify-content-center d-flex">
+                <img src="https://images.unsplash.com/photo-1572453020814-972b244074d4?ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8bW9uc3RlcnxlbnwwfHwwfHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60"
+                    class="w-100 enemy-pic" alt="">
             </div>
-            <div class="col-12">
+            <div id ="progress" class="col my-2">
+            </div>
+            <div class="col-12 text-center">
                 <h3><span id="name">Enemy Name</span></h3>
                 <h5>Health: <span id="health">100</span></h5>
                 <h5>Hits: <span id="hits">0</span></h5>
