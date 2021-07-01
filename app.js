@@ -50,7 +50,6 @@ let enemy ={
  */
 function hit(str){
     let attack = moves[str]
-    console.log('calced',Math.round(attack.damage*modTotal()))
     updateHealth(Math.round(attack.damage*modTotal()))
     drawHealth()
     updateHitCounter()
@@ -71,7 +70,6 @@ function usingItem(item){
     } else {
         items[item].inUse = true
     }
-        console.log('befirore click', items[item])
 }
 
 function giveAll(){
@@ -87,7 +85,6 @@ moves['heldItems'].forEach(element => {
         total += element.mod
     }
 })
-    console.log('total', total)
     return total
 }
 
@@ -96,7 +93,12 @@ moves['heldItems'].forEach(element => {
 
 //conditional for 0 health 
 function updateHealth(damage){
-    (enemy.health) ? enemy.health -= damage: ''
+    if(enemy.health <= 0){
+        enemy.health = 0;
+    }
+    else {
+        enemy.health -= damage
+    }
 }
 
 function drawHealth(){
