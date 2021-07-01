@@ -15,7 +15,8 @@ let moves = ({
 
 let enemy ={
     health: 100,
-    hitCounter: 0
+    hitCounter: 0,
+    name: 'Scary Clown'
 }
 
 /**
@@ -35,7 +36,7 @@ function hit(str){
 
 //conditional for 0 health 
 function updateHealth(damage){
-    (enemy.health ? enemy.health -= damage: '')
+    (enemy.health) ? enemy.health -= damage: ''
 }
 
 function drawHealth(){
@@ -43,7 +44,7 @@ function drawHealth(){
 }
 
 function drawHitCounter(){
-    document.getElementById('hitCount').innerText=enemy.hitCounter
+    document.getElementById('hits').innerText=enemy.hitCounter
 }
 
 function updateHitCounter(){
@@ -54,9 +55,16 @@ function drawButtons(){
     let template = ''
     for(let key in moves){
         let element = moves[key]
-        template += `<button class="btn ${element.btnClass} mx-1" onclick="hit('${key}')">${key}</button>`
+        template += `<button class="btn ${element.btnClass} mx-2" onclick="hit('${key}')">${key}</button>`
     }
     document.getElementById('buttons').innerHTML = template
 }
 
+function initEnemy(){
+    document.getElementById('name').innerHTML = enemy.name
+    drawHealth()
+    drawHitCounter
+}
+
+initEnemy()
 drawButtons()
